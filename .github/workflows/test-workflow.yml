@@ -27,9 +27,9 @@ jobs:
     - name: Read output of output_value
       run: echo ${{ steps.output_value.outputs.greeting }}
 
-    second_job:
-      needs: first_job
-      runs-on: ubuntu-latest
-      steps:
-      - name: Read output of first_job
-        run: echo ${{ jobs.first_job.steps.output_value.outputs.greeting }}
+  second_job:
+    needs: first_job
+    runs-on: ubuntu-latest
+    steps:
+    - name: Read output of first_job
+      run: echo ${{ jobs.first_job.steps.output_value.outputs.greeting }}
