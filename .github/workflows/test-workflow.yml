@@ -32,4 +32,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Read output of first_job
-      run: echo ${{ jobs.first_job.steps.output_value.outputs.greeting }}
+      run: echo ${{ steps.output_value.outputs.greeting }}
