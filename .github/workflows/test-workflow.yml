@@ -22,14 +22,12 @@ jobs:
     - name: Read secret
       run: echo ${{ secrets.TEST_SECRET }}
     - name: Output value
-      outputs:
-        output_value:
-          description: sample output 
-      run: echo See Ya, World!
+      run: echo "##[set-output name=greeting;]See Ya, World!"
+      id: output_value
 
   second_job:
     needs: first_job
     runs-on: ubuntu-latest
     steps:
       - name: Read output of first_job
-        run: echo ${{ steps.first_job.outputs.output_value }}
+        run: echo ${{ jobs.first_job.steps.output_value.outputs.greeting }}
