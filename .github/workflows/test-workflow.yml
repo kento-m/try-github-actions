@@ -25,11 +25,15 @@ jobs:
       run: echo "##[set-output name=greeting;]See Ya, World!"
       id: output_value
     - name: Read output of output_value
-      run: echo ${{ steps.output_value.outputs.greeting }}
+      run: echo ${{ steps.output_value.outputs.greeting }} # 読める
 
   second_job:
     needs: first_job
     runs-on: ubuntu-latest
     steps:
     - name: Read output of first_job
-      run: echo ${{ steps.output_value.outputs.greeting }}
+      run: echo ${{ steps.output_value.outputs.greeting }} # jobを跨ぐと読めていない
+      # 下はエラーになる
+      # run: echo ${{ jobs.first_job.steps.output_value.outputs.greeting }}
+      # 使えるコンテキストはこれを参照すること
+      # https://help.github.com/ja/actions/automating-your-workflow-with-github-actions/contexts-and-expression-syntax-for-github-actions
